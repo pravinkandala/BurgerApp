@@ -3,6 +3,7 @@ package edu.niu.cs.z1761257.burgerapp;
 import android.app.Activity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.CheckBox;
 import android.widget.RadioGroup;
 import android.widget.SeekBar;
@@ -79,5 +80,43 @@ public class MainActivity extends Activity {
     };//end of OnCheckedChangeListener for burger patty
 
 
+    //handle the checkbox
+
+    private View.OnClickListener baconListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            if( ((CheckBox)v).isChecked()){
+                burger.setBaconCalories(true);
+            }//end of if
+            else{
+                burger.setBaconCalories(false);
+            }//end of else
+
+            displayCalories();
+        }
+    }; //end of OnClickListener
+
+
+    private SeekBar.OnSeekBarChangeListener  sauceListener = new SeekBar.OnSeekBarChangeListener() {
+        @Override
+        public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+            burger.setSauceCalories(seekBar.getProgress());
+            displayCalories();
+        }
+
+        @Override
+        public void onStartTrackingTouch(SeekBar seekBar) {
+
+        }
+
+        @Override
+        public void onStopTrackingTouch(SeekBar seekBar) {
+
+        }
+    };//end of OnSeekBarChangeListener
+
+    private void displayCalories(){
+        caloriesTV.setText("Calories: "+ burger.getTotalCalories());
+    }
 
 }//end of MainActivity
